@@ -9,8 +9,8 @@ export default function SwitchSidebar() {
     <>
       {state === "collapsed" && (
         <div
-          className={`p-1 transition-all duration-200 hover:bg-gray-600 rounded-md hover:cursor-pointer w-fit mx-2 -z-10 ${
-            state === "collapsed" ? "block" : "hidden"
+          className={`p-1 transition-all duration-200 hover:bg-gray-600 rounded-md hover:cursor-pointer w-fit mx-2 z-10 ${
+            state === "collapsed" ? "absolute" : "hidden"
           }`}
           onClick={toggleSidebar}
         >

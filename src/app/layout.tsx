@@ -23,7 +23,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider attribute="class" enableSystem>
-          <SidebarProvider>{children}</SidebarProvider>
+          <SidebarProvider className="flex">{children}</SidebarProvider>
         </ThemeProvider>
       </body>
     </html>
