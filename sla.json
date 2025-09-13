@@ -12,13 +12,13 @@
               "id": 1757098674407,
               "title": "Take a break Coffe",
               "description": "Take a break Coffe with my friends",
+              "status": "Todo",
               "subTasks": [
                 {
                   "title": "And get some cookies too",
                   "completed": false
                 }
-              ],
-              "status": "Todo"
+              ]
             }
           ]
         },

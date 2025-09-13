@@ -1,20 +1,26 @@
 "use client";
 
-import { PanelRightOpen } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useSidebar } from "../ui/sidebar";
 
 export default function SwitchSidebar() {
   const { state, toggleSidebar } = useSidebar();
   return (
     <>
-      {state === "collapsed" && (
+      {state === "collapsed" ? (
         <div
-          className={`p-1 transition-all duration-200 hover:bg-gray-600 rounded-md hover:cursor-pointer w-fit mx-2 z-10 ${
-            state === "collapsed" ? "absolute" : "hidden"
-          }`}
+          className="absolute bottom-10 left-80 bg-purple-200 w-12 p-2 rounded-br-full rounded-tr-full cursor-pointer"
           onClick={toggleSidebar}
         >
-          <PanelRightOpen size={24} />
+          <Eye />
+        </div>
+      ) : (
+        <div
+          className="flex items-center justify-center gap-2 p-2 rounded-full hover:bg-purple-200 hover:text-white cursor-pointer transition-colors duration-200 text-gray-400 uppercase text-sm"
+          onClick={toggleSidebar}
+        >
+          <EyeOff />
+          <span>Ocultar menu</span>
         </div>
       )}
     </>
