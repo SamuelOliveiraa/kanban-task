@@ -9,7 +9,7 @@ import { useActiveBoardStore } from "@/hooks/use-active-board";
 import { useBoardStore } from "@/hooks/use-board-store";
 import Button from "../Button";
 
-export default function DeleteBoardModal() {
+export default function DeleteBoardModal({ task }: { task?: boolean }) {
   const { activeBoard } = useActiveBoardStore();
   const { deleteBoard } = useBoardStore();
 
@@ -22,7 +22,7 @@ export default function DeleteBoardModal() {
 
   return (
     <Dialog>
-      <DialogTrigger className=" hover:opacity-70 transition-all duration-200 text-red-500 text-md hover:cursor-pointer font-bold">
+      <DialogTrigger className="hover:opacity-70 transition-all duration-200 text-red-500 text-md hover:cursor-pointer font-bold">
         Deletar Quadro
       </DialogTrigger>
       <DialogContent className="bg-gray-100 border-none flex flex-col gap-5">
@@ -38,6 +38,7 @@ export default function DeleteBoardModal() {
           Esta ação removerá todas as colunas e tarefas e não poderá ser
           revertida.
         </DialogDescription>
+
         <div className="flex gap-3">
           <DialogTrigger asChild>
             <Button variant="secondary">Não</Button>

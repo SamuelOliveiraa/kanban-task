@@ -31,6 +31,9 @@ module.exports = {
           200: "var(--color-red-200)",
           500: "var(--color-red-500)"
         }
+      },
+      fontFamily: {
+        sans: ["var(--font-plus-jakarta)", "sans-serif"]
       }
     }
   },

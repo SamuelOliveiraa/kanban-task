@@ -1,24 +1,36 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { useActiveBoardStore } from "@/hooks/use-active-board";
 import { EllipsisVertical } from "lucide-react";
+import CreateBoardModal from "../Modal/CreateBoardModal";
 import DeleteBoardModal from "../Modal/DeleteBoardModal";
 
-export default function MenuDropdown() {
+export default function MenuDropdown({ task }: { task?: boolean }) {
+  const { activeBoard } = useActiveBoardStore();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="p-[1px] rounded-full hover:bg-gray-neutral transition-colors duration-200">
         <EllipsisVertical className="text-gray-500" size={30} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="border-gray-border bg-gray-neutral px-4 py-2">
-        <DropdownMenuItem className="hover:opacity-70 transition-all duration-200 text-gray-600 text-md hover:cursor-pointer font-bold">
-          Editar Quadro
-        </DropdownMenuItem>
-        <DeleteBoardModal />
-      </DropdownMenuContent>
+
+      {task ? (
+        <DropdownMenuContent className="flex flex-col border-gray-border bg-gray-neutral transition-all duration-200 text-md hover:cursor-pointer font-bold p-3 gap-2">
+          <CreateBoardModal boardID={activeBoard?.boardID}>
+            Editar Tarefa
+          </CreateBoardModal>
+          <DeleteBoardModal />
+        </DropdownMenuContent>
+      ) : (
+        <DropdownMenuContent className="flex flex-col border-gray-border bg-gray-neutral transition-all duration-200 text-md hover:cursor-pointer font-bold p-3 gap-2">
+          <CreateBoardModal boardID={activeBoard?.boardID}>
+            Editar Quadro
+          </CreateBoardModal>
+          <DeleteBoardModal />
+        </DropdownMenuContent>
+      )}
     </DropdownMenu>
   );
 }

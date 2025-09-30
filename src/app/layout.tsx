@@ -6,7 +6,8 @@ import "./globals.css";
 
 const PlusJakart = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"]
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  variable: "--font-plus-jakarta"
 });
 
 export const metadata: Metadata = {
@@ -24,12 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pt-BR"
-      className={PlusJakart.className}
-      suppressHydrationWarning
-    >
-      <body>
+    <html lang="pt-BR" className={PlusJakart.variable} suppressHydrationWarning>
+      <body className="font-sans">
         <ThemeProvider attribute="class" enableSystem>
           <SidebarProvider className="flex">{children}</SidebarProvider>
         </ThemeProvider>

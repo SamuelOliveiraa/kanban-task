@@ -1,9 +1,13 @@
 "use client";
 
+import CreateBoardModal from "@/components/Modal/CreateBoardModal";
+import SelectTaksModal from "@/components/Modal/SelectTaksModal";
+import TaskCompleted from "@/components/TaskCompleted";
 import { useActiveBoardStore } from "@/hooks/use-active-board";
 import { useBoardStore } from "@/hooks/use-board-store";
 import { Tasks } from "@/types/ColumnsType";
 import { Plus } from "lucide-react";
+import { useMemo } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -43,9 +47,14 @@ function DraggableBox({
   }));
 
   return drag(
-    <div className="px-4 py-6 rounded-md transition-colors duration-300 bg-gray-100 flex flex-col gap-2 cursor-pointer">
-      <h3 className="">{task.title}</h3>
-      <p>{task.description}</p>
+    <div className="rounded-md transition-colors duration-300 bg-gray-100 cursor-pointer">
+      <SelectTaksModal tasks={task}>
+        <h3 className="font-bold text-lg">{task.title}</h3>
+        <p className="text-gray-500 font-bold text-base flex gap-1">
+          <TaskCompleted task={task} />
+          <span>sub-tarefas</span>
+        </p>
+      </SelectTaksModal>
     </div>
   );
 }
@@ -114,15 +123,15 @@ export default function Board() {
   ];
 
   const { activeBoard } = useActiveBoardStore();
-  const { boardData, moveTaks } = useBoardStore();
-  const boardActive = boardData.find(
-    item => item.boardID === activeBoard?.boardID
-  );
+  const { boardData, moveTask } = useBoardStore();
+  const boardActive = useMemo(() => {
+    return boardData.find(item => item.boardID === activeBoard?.boardID);
+  }, [activeBoard?.boardID, boardData]);
 
   function handleDrop(item: DragItem, toColumnID: string, boardID: string) {
     if (!boardID) return;
     if (item.fromColumnID === toColumnID) return; // nada a fazer
-    moveTaks(boardID, item.taskID, item.fromColumnID, toColumnID);
+    moveTask(boardID, item.taskID, item.fromColumnID, toColumnID);
   }
 
   return (
@@ -150,15 +159,17 @@ export default function Board() {
               />
             ))}
 
-            {boardActive?.columns.length < 5 && (
-              <div className="min-w-60 md:min-w-80 md:max-w-80 h-full flex flex-col items-center gap-2">
-                <span className="h-8 " />
+            {boardActive?.columns && boardActive.columns.length < 5 && (
+              <CreateBoardModal boardID={boardActive?.boardID}>
+                <div className="min-w-60 md:min-w-80 md:max-w-80 h-full flex flex-col items-center gap-2">
+                  <span className="h-8 " />
 
-                <span className="w-full flex flex-1 gap-2 bg-gray-100 items-center justify-center max-h-[810px] rounded-md cursor-pointer text-xl text-gray-500 hover:opacity-80 transition-all duration-200 p-4">
-                  <Plus />
-                  Adicionar Nova Coluna
-                </span>
-              </div>
+                  <span className="w-full flex flex-1 gap-2 bg-gray-100 items-center justify-center max-h-[810px] rounded-md cursor-pointer text-xl text-gray-500 hover:opacity-80 transition-all duration-200 p-4">
+                    <Plus />
+                    Adicionar Nova Coluna
+                  </span>
+                </div>
+              </CreateBoardModal>
             )}
           </div>
         </DndProvider>

@@ -7,12 +7,13 @@ export interface Columns {
 export interface Tasks {
   taskID: string;
   title: string;
-  description: string;
   status: string;
+  description?: string;
   subTasks?: SubTasks[];
 }
 
 export interface SubTasks {
+  subTaskID: string;
   title: string;
   completed: boolean;
 }

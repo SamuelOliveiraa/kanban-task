@@ -4,8 +4,10 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog";
+import { useActiveBoardStore } from "@/hooks/use-active-board";
 import { useBoardStore } from "@/hooks/use-board-store";
 import { Plus, X } from "lucide-react";
+import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import Button from "../Button";
 
@@ -14,33 +16,56 @@ type FormValues = {
   columns: { value: string }[];
 };
 
-export default function CreateBoardModal() {
+type CreateBoardModalProps = {
+  children: React.ReactNode;
+  boardID?: string | undefined;
+};
+
+export default function CreateBoardModal({
+  children,
+  boardID
+}: CreateBoardModalProps) {
+  const { addBoard, getBoardByID, editBoard } = useBoardStore();
+  const { setActiveBoard } = useActiveBoardStore();
+
   const {
     register,
     control,
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<FormValues>({
-    defaultValues: {
-      name: "",
-      columns: [{ value: "" }]
-    }
-  });
-  const { addBoard } = useBoardStore();
+  } = useForm<FormValues>();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "columns"
   });
 
+  useEffect(() => {
+    const boardToEdit = getBoardByID(boardID);
+    const columnsToEdit = boardToEdit?.columns.map(coll => ({
+      value: coll.name
+    })) || [{ value: "" }];
+
+    reset({
+      name: boardToEdit?.title || "",
+      columns: columnsToEdit
+    });
+  }, [boardID, getBoardByID, reset]);
+
   function handleSumbitForm(data: FormValues) {
     const payload = {
       name: data.name,
       columns: data.columns.map(coll => coll.value).filter(Boolean) // Remove itens vazios
     };
-
-    addBoard(payload.name, payload.columns);
+    if (boardID) {
+      editBoard(boardID, payload.name, payload.columns);
+      setActiveBoard({ boardID, title: payload.name });
+      reset();
+    } else {
+      addBoard(payload.name, payload.columns);
+      reset();
+    }
 
     reset();
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
@@ -48,18 +73,20 @@ export default function CreateBoardModal() {
 
   return (
     <Dialog>
-      <DialogTrigger className="">Criar novo Quadro</DialogTrigger>
+      <DialogTrigger className="hover:opacity-70 transition-all duration-200 text-md hover:cursor-pointer font-bold text-start">
+        {children}
+      </DialogTrigger>
 
       <DialogContent className="border-none bg-gray-100 m-0">
         <DialogTitle className="font-bold text-2xl">
-          Criar novo Quadro
+          {boardID ? "Editar Quadro" : "Criar novo Quadro"}
         </DialogTitle>
         <div className="flex flex-col gap-3">
           <label className="font-bold text-xs">Nome</label>
           <input
-            {...register("name", { required: "O nome é obrigatiorio" })}
+            {...register("name", { required: "O nome é obrigatorio" })}
             placeholder="ex. Primeiro Projeto"
-            className={`bg-transparent border border-gray-border focus:border-purple-200 active:border-purple-200 focus-visible:border-purple-200 rounded-sm w-full p-2 placeholder:text-gray-600 ${
+            className={`bg-transparent outline-none border border-gray-border focus:border-purple-200 active:border-purple-200 focus-visible:border-purple-200 rounded-sm w-full p-2 placeholder:text-gray-600 ${
               errors.name && "border-red-500"
             }`}
           />
@@ -80,7 +107,7 @@ export default function CreateBoardModal() {
                     required: "O nome da coluna é obrigatorio"
                   })}
                   placeholder="ex. A Fazer"
-                  className={`bg-transparent border border-gray-border focus:border-purple-200 active:border-purple-200 focus-visible:border-purple-200 rounded-sm w-full p-2 placeholder:text-gray-600 ${
+                  className={`bg-transparent outline-none border border-gray-border focus:border-purple-200 active:border-purple-200 focus-visible:border-purple-200 rounded-sm w-full p-2 placeholder:text-gray-600 ${
                     errors.columns?.[index]?.value && "border-red-500"
                   } `}
                 />
@@ -109,8 +136,8 @@ export default function CreateBoardModal() {
               Adicionar nova Coluna
             </Button>
           )}
-          <Button type="submit" onClick={handleSubmit(handleSumbitForm)}>
-            Criar novo Quadro
+          <Button onClick={handleSubmit(handleSumbitForm)}>
+            {boardID ? "Editar Quadro" : "Criar novo Quadro"}
           </Button>
         </div>
       </DialogContent>

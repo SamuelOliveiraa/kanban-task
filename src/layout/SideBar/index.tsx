@@ -74,10 +74,12 @@ export default function SideBar() {
         </div>
 
         <div className="flex flex-col gap-4 justify-center pl-5">
-          <Button>
-            <Plus size={14} />
-            <CreateBoardModal />
-          </Button>
+          <CreateBoardModal>
+            <Button>
+              <Plus size={14} />
+              Criar novo Quadro
+            </Button>
+          </CreateBoardModal>
           <SwitchTheme />
           <SwitchSidebar />
         </div>

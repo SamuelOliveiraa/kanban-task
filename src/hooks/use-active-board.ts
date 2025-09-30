@@ -5,10 +5,12 @@ import { create } from "zustand";
 
 type ActiveBoardState = {
   activeBoard: BoardInfo | null;
-  setActiveBoard: (board: BoardInfo) => void | null;
+  setActiveBoard: (board: BoardInfo | null) => void;
 };
 
 function getCookie(name: string) {
+  if (typeof document === "undefined") return null;
+
   const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
   if (!match) return null;
 
@@ -22,7 +24,7 @@ function getCookie(name: string) {
 
 export const useActiveBoardStore = create<ActiveBoardState>(set => ({
   activeBoard: getCookie("activeBoard"),
-  setActiveBoard: (board: BoardInfo) => {
+  setActiveBoard: (board: BoardInfo | null) => {
     set({ activeBoard: board });
 
     if (board) {

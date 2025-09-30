@@ -2,6 +2,7 @@
 
 import Button from "@/components/Button";
 import CreateBoardModal from "@/components/Modal/CreateBoardModal";
+import CreateTaskModal from "@/components/Modal/CreateTasksModal";
 import SidebarItem from "@/components/SidebarItem";
 import SwitchTheme from "@/components/SwitchTheme";
 import {
@@ -27,6 +28,7 @@ export default function Header() {
 
   return (
     <header className="w-full flex items-center bg-gray-100">
+      {/* Logo Kanban */}
       <div className="hidden min-w-80 md:flex items-center gap-4 border-r border-b h-24 border-gray-border p-6 transition-colors duration-200">
         <Image
           src={"/logo.svg"}
@@ -94,21 +96,27 @@ export default function Header() {
                 ))}
               </div>
               <div className="flex flex-col gap-4 justify-center px-4">
-                <Button>
-                  <Plus size={14} />
-                  <CreateBoardModal />
-                </Button>
+                <CreateBoardModal>
+                  <Button>
+                    <Plus size={14} />
+                    Criar novo Quadro
+                  </Button>
+                </CreateBoardModal>
+
                 <SwitchTheme />
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        {boardData.length !== 0 && (
+
+        {activeBoard !== null && (
           <div className="flex gap-3">
-            <Button>
-              <Plus size={16} />
-              <span className="hidden sm:block">Adicionar Tarefa</span>
-            </Button>
+            <CreateTaskModal>
+              <Button>
+                <Plus size={16} />
+                <span className="hidden sm:block">Adicionar Tarefa</span>
+              </Button>
+            </CreateTaskModal>
 
             <MenuDropdown />
           </div>
