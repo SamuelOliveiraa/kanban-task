@@ -172,6 +172,7 @@ export const useBoardStore = create<BoardStore>()(
           return {
             ...board,
             columns: board.columns.map(column => {
+              if (!column.tasks) return column;
               return {
                 ...column,
                 tasks: column.tasks.map(task => {
