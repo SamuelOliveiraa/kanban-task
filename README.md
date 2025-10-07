@@ -1,5 +1,7 @@
 # Kanban Task
 
+![Imagem do Projeto Kanban Task](public/og-image.webp)
+
 Um aplicativo de gerenciamento de tarefas estilo Kanban, desenvolvido com Next.js, React, Zustand, TailwindCSS e Radix UI.
 
 ## ✨ Funcionalidades
