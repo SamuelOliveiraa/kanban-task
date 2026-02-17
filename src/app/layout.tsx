@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kanban Task",
     description: "Organize suas tarefas com nosso Kanban Task Online.",
-    url: "https://kanban-task-samuel.vercel.app/og-image.webp",
+    url: "https://kanban-task-samuel.vercel.app/",
     siteName: "Kanban Task",
     locale: "pt-BR",
     images: [
