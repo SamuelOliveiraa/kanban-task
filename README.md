@@ -1,19 +1,19 @@
 # Kanban Task
 
-![Imagem do Projeto Kanban Task](public/og-image.webp)
+![Kanban Task Project Image](public/og-image.webp)
 
-Um aplicativo de gerenciamento de tarefas estilo Kanban, desenvolvido com Next.js, React, Zustand, TailwindCSS e Radix UI.
+A Kanban-style task management application, developed with Next.js, React, Zustand, TailwindCSS, and Radix UI.
 
-## ✨ Funcionalidades
+## ✨ Features
 
-- Criação, edição e exclusão de quadros (boards)
-- Adição, movimentação e exclusão de tarefas
-- Modal para criar e editar tarefas
-- Sidebar com alternância de tema (claro/escuro)
-- Drag and drop com react-dnd
-- Interface responsiva e moderna
+- Create, edit, and delete boards
+- Add, move, and delete tasks
+- Modal to create and edit tasks
+- Sidebar with theme switching (light/dark)
+- Drag and drop with react-dnd
+- Responsive and modern interface
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 
 - [Next.js](https://nextjs.org/) 15
 - [React](https://react.dev/) 19
@@ -24,47 +24,47 @@ Um aplicativo de gerenciamento de tarefas estilo Kanban, desenvolvido com Next.j
 - [React Hook Form](https://react-hook-form.com/)
 - [nanoid](https://github.com/ai/nanoid)
 
-## 📦 Instalação
+## 📦 Installation
 
-1. Clone o repositório:
+1. Clone the repository:
    ```bash
    git clone https://github.com/SamuelOliveiraa/kanban-task.git
    cd kanban-task
    ```
-2. Instale as dependências:
+2. Install the dependencies:
    ```bash
    npm install
-   # ou
+   # or
    yarn install
    ```
-3. Rode o projeto em modo desenvolvimento:
+3. Run the project in development mode:
    ```bash
    npm run dev
-   # ou
+   # or
    yarn dev
    ```
 
-Acesse [http://localhost:3000](http://localhost:3000) para visualizar o app.
+Access [http://localhost:3000](http://localhost:3000) to view the app.
 
-## 🗂 Estrutura de Pastas
+## 🗂 Folder Structure
 
 ```
 src/
-  app/           # Páginas e layouts do Next.js
-  components/    # Componentes reutilizáveis (UI, modais, sidebar, etc)
-  hooks/         # Hooks customizados
-  layout/        # Componentes de layout (Header, Sidebar, Board)
-  lib/           # Funções utilitárias
-  types/         # Tipagens TypeScript
+  app/           # Next.js pages and layouts
+  components/    # Reusable components (UI, modals, sidebar, etc)
+  hooks/         # Custom hooks
+  layout/        # Layout components (Header, Sidebar, Board)
+  lib/           # Utility functions
+  types/         # TypeScript types
 ```
 
 ## 📝 Scripts
 
-- `npm run dev` — Inicia o servidor de desenvolvimento
-- `npm run build` — Gera a build de produção
-- `npm start` — Inicia o servidor em produção
-- `npm run lint` — Executa o linter
+- `npm run dev` — Starts the development server
+- `npm run build` — Generates the production build
+- `npm start` — Starts the production server
+- `npm run lint` — Runs the linter
 
-## 📄 Licença
+## 📄 License
 
-Este projeto é open-source e está sob a licença MIT.
+This project is open-source and is under the MIT license.
