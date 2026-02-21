@@ -1,0 +1,6 @@
+# Ignorar arquivos gerados como HTML
+*.html linguist-generated=true
+
+# Forçar reconhecimento de arquivos como TypeScript
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
